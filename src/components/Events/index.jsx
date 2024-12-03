@@ -1,10 +1,10 @@
+import useEventsData from '../hooks/useEventsData';
 import  EventItem from './components/EventItem';
-import eventsJSON from '../../data/events.json';
-import { useState } from 'react';
+
 
 const Events = ({ searchTerm }) => {
-    const [data] = useState(eventsJSON)
-    const events = data._embedded.events;
+
+  const { events, isLoading, error } = useEventsData();
 
     const handleEventItemClick = (id) =>{
         console.log('El evento fue clickeado', id);
@@ -26,7 +26,15 @@ const Events = ({ searchTerm }) => {
         id={eventItem.id}
     />
     ))
+    };
+
+    if (error){
+      return <div>Ha ocurrido un error</div>
     }
+    if (isLoading) {
+      return <div>Cargando resultados...</div>
+    }
+
   return (
     <div>
         Eventos
