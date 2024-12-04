@@ -1,10 +1,17 @@
+import { useRouteError } from "react-router-dom"
 import styles from './Error404.module.css';
 
+
 const Error404 = () =>{
+
+    const error = useRouteError();
+
+    console.log(error)
+
     return(
         <div className={styles.container}>
-            <h3 className={styles.title}>Ops!</h3>
-            <p className={styles.description}>No hemos encontrado la ruta que buscas</p>
+            <h3 className={styles.title}>Ops! {error.status}</h3>
+            <p className={styles.description}>{ error.data}</p>
         </div>
     )
 }
