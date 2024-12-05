@@ -4,9 +4,7 @@ const Navbar = forwardRef(({onSearch}, ref) => {
   const [search, setSearch] = useState('');
   
 
-  useEffect(() => {
-    console.log('1010 effect')
-  }, [search, onSearch]);
+
 
   useImperativeHandle(ref, () =>({
     search,
