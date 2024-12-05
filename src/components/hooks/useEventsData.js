@@ -24,6 +24,7 @@ const useEventsData = () => {
 
   return {
     events: data?._embedded?.events || [],
+    page: data?.page || {},
     isLoading,
     error,
     fetchEvents,
