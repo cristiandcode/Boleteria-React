@@ -2,6 +2,8 @@ import Home from "../pages/Home";
 import Detail from "../pages/Detail";
 import Error404 from "../pages/Error404";
 import Profile from "../pages/Profile";
+import LikedEvents from '../pages/Profile/components/LikedEvents'
+import MyInfo from '../pages/Profile/components/MyInfo'
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
 const router = createBrowserRouter([
@@ -20,11 +22,11 @@ const router = createBrowserRouter([
         children: [
         {
             path: "my-info",
-            element: <div>My info</div>,
+            element: <MyInfo/>,
       },    
          { 
-            path: 'like-events',
-            element: <div>Like events</div>
+            path: 'liked-events',
+            element: <LikedEvents/>
       },
     ],
   },
