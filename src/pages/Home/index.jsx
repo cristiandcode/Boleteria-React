@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, useCallback, useMemo } from "react";
 import ReactPaginate from "react-paginate";
 import Navbar from "../../components/Navbar";
 import Events from "../../components/Events";
@@ -8,13 +8,16 @@ import styles from './Home.module.css';
   const Home = () => {
     const { data , isLoading, error,fetchEvents,  } = useEventsResults();
     const [searchTerm, setSearchTerm] = useState("");
-    const events = data?._embedded?.events || [];
-    const page = data?.page || {};
+    const events = useMemo(() => data?._embedded?.events || [],[data?._embedded?.events]);
+    const page = useMemo(() => data?.page || {}, [data?.page]);
     const containerRef = useRef();
-
+    const [isToogle, setIsToogle] = useState(false);
+    
+    const fetchMyEventsRef = useRef();
+    fetchMyEventsRef.current = fetchEvents;
 
       useEffect(()=>{
-        fetchEvents()
+        fetchMyEventsRef.current();
       },[])
 
     const handleNavbarSearch = (term) => {
@@ -23,9 +26,9 @@ import styles from './Home.module.css';
 
     };
 
-    const handlePageClick = ({ selected }) =>{ //El selected nos indicara en que pagina esta el usuario
+    const handlePageClick = useCallback(({ selected }) =>{ //El selected nos indicara en que pagina esta el usuario
       fetchEvents(`&keyword=${searchTerm}&page=${selected}`)
-    };
+    },[searchTerm, fetchEvents]);
 
     const renderEvents = () =>{
       if (isLoading) {
@@ -38,6 +41,7 @@ import styles from './Home.module.css';
 
       return (
         <div>
+          <button onClick={() => setIsToogle(!isToogle)}>{isToogle ? 'NO' : 'OFF'}</button>
             <Events searchTerm={searchTerm} events={events}></Events>
             <ReactPaginate
             className={styles.pagination}

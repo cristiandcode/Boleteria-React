@@ -16,7 +16,7 @@ const MyInfo = () =>{
         }catch (error){
             console.log(error)
         }
-    },[])
+    },[setValue])
 
     const handleFormSubmit = (data) =>{
         try{
@@ -24,6 +24,7 @@ const MyInfo = () =>{
             alert('Usuario actualizado')
         } catch (error){
             alert('Ha ocurrido un error')
+            console.log(error)
         }
 
     }  
