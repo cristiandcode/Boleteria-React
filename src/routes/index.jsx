@@ -18,11 +18,12 @@ const router = createBrowserRouter([
   {
     path: "/detail/:eventId",
     element: 
-      (<Suspense fallback={<div>Cargando...</div>}>
-        <ErrorBoundary fallback={<div>Ha ocurrido un error al obtener  el detalle</div>}>
-        <Detail />
+      (
+        <Suspense fallback={<div>Cargando...</div>}>
+        <ErrorBoundary fallback={<div>Ha ocurrido un error al obtener el detalle</div>}>
+            <Detail />
         </ErrorBoundary>
-      </Suspense>
+    </Suspense>
       )
   },
   {
